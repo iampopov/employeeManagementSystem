@@ -53,7 +53,6 @@ const updateDepartment = () => {
       type: 'input',
       message: 'Please enter department name'
     }).then(function(answer) {
-      //console.log(answer.departmentName);
       const query = connection.query(
         "INSERT INTO department SET ?",
         {
@@ -66,15 +65,80 @@ const updateDepartment = () => {
         } 
       )
     })
-    //start();
   }
   const addNewRole = () => {
-    console.log('Add new Role!')
-    start();
+    inquirer.prompt([{
+      name: 'roleName',
+      type: 'input',
+      message: 'Please enter role title'
+    },
+    {
+      name: 'roleSalary',
+      type: 'input',
+      message: 'Please enter role salary',
+      validate: validateNr
+    },
+    {
+      name: 'roleDepartment',
+      type: 'input',
+      message: 'Please enter department number for this role',
+      validate: validateNr
+    }]
+    ).then(function(answer) {
+      const query = connection.query(
+        "INSERT INTO role SET ?",
+        {
+          title: answer.roleName,
+          salary: answer.roleSalary,
+          department_id: answer.roleDepartment
+        },
+        function(err, res) {
+          if (err) throw err;
+          console.log(res.affectedRows + ' role added\n')
+          start();
+        } 
+      )
+    })
   }
   const addNewEmployee = () => {
-    console.log('Add new Employee!')
-    start();
+    inquirer.prompt([{
+      name: 'employeeFirstName',
+      type: 'input',
+      message: 'Please enter employee first name'
+    },
+    {
+      name: 'employeeLastName',
+      type: 'input',
+      message: 'Please enter employee last name'
+    },
+    {
+      name: 'employeeRole',
+      type: 'input',
+      message: 'Please enter role number for this employee',
+      validate: validateNr
+    },
+    {
+      name: 'employeeManager',
+      type: 'input',
+      message: 'Please enter manager id number for this employee',
+      validate: validateNr
+    }]
+    ).then(function(answer) {
+      const query = connection.query(
+        "INSERT INTO employee SET ?",
+        {
+          first_name: answer.employeeFirstName,
+          last_name: answer.employeeLastName,
+          role_id: answer.employeeRole,
+          manager_id: answer.employeeManager
+        },
+        function(err, res) {
+          if (err) throw err;
+          console.log(res.affectedRows + ' employee added\n')
+          start();
+        } 
+      )
+    })
   }
   function exit() {
       connection.end();
@@ -171,4 +235,10 @@ const updateDepartment = () => {
             break;
         }
     })
+}
+
+function validateNr(nr)
+{
+    const reg = /^\d+$/;
+    return reg.test(nr) || "This should be a number!";
 }

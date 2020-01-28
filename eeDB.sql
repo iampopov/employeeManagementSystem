@@ -14,8 +14,8 @@ manager_id INT
 
 CREATE TABLE role (
 role_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-titile VARCHAR(30),
-salary DECIMAL,
+title VARCHAR(30),
+salary DECIMAL(10, 2),
 department_id INT
 );
 
@@ -23,3 +23,5 @@ CREATE TABLE department (
 department_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 name VARCHAR(30)
 );
+
+SELECT * FROM department;
