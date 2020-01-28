@@ -19,15 +19,31 @@ connection.connect(function(err) {
   start();
 });
 
-
+const choices = []
+function chooseRole() {
+  connection.query('SELECT * FROM role', (err, res) => {
+    if (err) throw err;
+    for(const {role_id} of res) {
+      choices.push({role_id})
+    }
+    
+  });
+}
 
 const updateDepartment = () => {
     console.log('update department!')
     start();
   }
   const updateRole = () => {
-    console.log('update Role!')
-    start();
+    chooseRole();
+    inquirer.prompt({
+      name: 'whatRole',
+      type: 'list',
+      message: 'What role would you like to update?',
+      choices: choices
+    })
+
+    //start();
   }
   const updateEmployee = () => {
     
