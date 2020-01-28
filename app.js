@@ -30,21 +30,36 @@ const updateDepartment = () => {
     start();
   }
   const updateEmployee = () => {
-    console.log('update Employee!')
+    
     start();
   }
   
   const viewDepartment = () => {
-    console.log('view department!')
-    start();
+    connection.query('SELECT * FROM department', (err, res) => {
+      if (err) throw err;
+      for(const {department_id, name} of res) {
+        console.log(`Deparment id: ${department_id} | Department name: ${name}`);
+      }
+      start();
+    });
   }
   const viewRole = () => {
-    console.log('view Roles!')
-    start();
+    connection.query('SELECT * FROM role', (err, res) => {
+      if (err) throw err;
+      for(const {title, salary, department_id} of res) {
+        console.log(`Title is: ${title} | Salary is ${salary} | Department number is ${department_id}`)
+      }
+      start();
+    })
   }
   const viewEmployee = () => {
-    console.log('view Employees!')
-    start();
+    connection.query('SELECT * FROM employee', (err, res) => {
+      if (err) throw err;
+      for(const {first_name, last_name, role_id, manager_id} of res) {
+        console.log(`I am ${first_name} ${last_name} my role number is ${role_id} and my manager id is ${manager_id}`)
+      }
+      start();
+    })
   }
   
   const addNewDepartment = () => {
