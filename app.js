@@ -48,8 +48,25 @@ const updateDepartment = () => {
   }
   
   const addNewDepartment = () => {
-    console.log('Add new department!')
-    start();
+    inquirer.prompt({
+      name: 'departmentName',
+      type: 'input',
+      message: 'Please enter department name'
+    }).then(function(answer) {
+      //console.log(answer.departmentName);
+      const query = connection.query(
+        "INSERT INTO department SET ?",
+        {
+          name: answer.departmentName
+        },
+        function(err, res) {
+          if (err) throw err;
+          console.log(res.affectedRows + ' department added\n')
+          start();
+        } 
+      )
+    })
+    //start();
   }
   const addNewRole = () => {
     console.log('Add new Role!')
