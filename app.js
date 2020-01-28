@@ -10,6 +10,15 @@ const connection = mysql.createConnection({
   password: process.env.db_pass,
   database: "ee_db"
 });
+const choices = []
+function chooseRole() {
+  connection.query('SELECT * FROM role', (err, res) => {
+    if (err) throw err;
+    //console.log(res)
+    for(const {role_id, title} of res) {
+      choices.push(role_id)
+    }
+  });}
 
 
 // connect to the mysql server and sql database
@@ -17,31 +26,57 @@ connection.connect(function(err) {
   if (err) throw err;
   // run the start function after the connection is made to prompt the user
   start();
+  chooseRole();
 });
-
-const choices = []
-function chooseRole() {
-  connection.query('SELECT * FROM role', (err, res) => {
-    if (err) throw err;
-    for(const {role_id} of res) {
-      choices.push({role_id})
-    }
-    
-  });
-}
 
 const updateDepartment = () => {
     console.log('update department!')
     start();
   }
   const updateRole = () => {
-    chooseRole();
-    inquirer.prompt({
+    inquirer.prompt([{
       name: 'whatRole',
       type: 'list',
       message: 'What role would you like to update?',
       choices: choices
-    })
+    },
+    {
+     name: 'titleU',
+     type: 'input',
+     message: "What is the new title?"
+    },
+    {
+      name: 'salaryU',
+      type: 'input',
+      message: "What is the new salary?",
+      validate: validateNr
+    },
+    {
+      name: 'departmentU',
+      type: 'input',
+      message: "What is the new department?",
+      validate: validateNr
+    }
+    ])
+    .then((answer => {
+      const query = connection.query(
+        "UPDATE role SET ? WHERE ?", 
+      [
+      {
+        title: answer.titleU,
+        salary: answer.salaryU,
+        department_id: answer.departmentU
+      },
+      {
+        role_id: answer.whatRole
+      }
+      ],
+      (err, res) => {
+        if (err) throw err;
+        console.log(`${res.affectedRows} rows updated \n`)
+      }
+      )
+    }))
 
     //start();
   }
