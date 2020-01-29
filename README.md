@@ -8,19 +8,19 @@ This app is a **C**ontent **M**anagement **S**ystems solution for managing a com
 
 - **department**:
 
-  - **id** - INT PRIMARY KEY
+  - **department_id** - INT PRIMARY KEY
   - **name** - VARCHAR(30) to hold department name
 
 - **role**:
 
-  - **id** - INT PRIMARY KEY
+  - **role_id** - INT PRIMARY KEY
   - **title** - VARCHAR(30) to hold role title
   - **salary** - DECIMAL to hold role salary
   - **department_id** - INT to hold reference to department role belongs to
 
 - **employee**:
 
-  - **id** - INT PRIMARY KEY
+  - **ee_id** - INT PRIMARY KEY
   - **first_name** - VARCHAR(30) to hold employee first name
   - **last_name** - VARCHAR(30) to hold employee last name
   - **role_id** - INT to hold reference to role employee has
