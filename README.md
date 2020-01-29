@@ -51,3 +51,5 @@ So that I can organize and plan my business
 - Used [InquirerJs](https://www.npmjs.com/package/inquirer/v/0.2.3) NPM package to interact with the user via the command-line.
 
 - Use [console.table](https://www.npmjs.com/package/console.table) to print MySQL rows to the console.
+
+- Input validation using [Regular Expression](http://www.regexbuddy.com/regex.html)
