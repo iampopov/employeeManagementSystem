@@ -258,7 +258,7 @@ const updateDepartment = () => {
       name: 'updateWhat',
       type: 'list',
       message: 'What would you like to update?',
-      choices: ['Department', 'Role', 'Employee']
+      choices: ['Role']
     }).then(answer => {
         switch (answer.updateWhat) {
           case 'Department':
@@ -274,13 +274,50 @@ const updateDepartment = () => {
     })
 }
 
+const viewTotals = () => {
+  inquirer.prompt({
+    name: "departmentT",
+    type: 'list',
+    message: 'What department totals would you like to see?',
+    choices: choices
+  }).then((answer => {
+    const query = connection.query(
+    "SELECT SUM(salary) departmentTotal FROM role WHERE ?",
+    {
+      department_id: answer.departmentT
+    }, (err, res) => {
+      if (err) throw err;
+      console.log(res);
+      start();
+    }
+      //   "UPDATE role SET ? WHERE ?", 
+    // [
+    // {
+    //   title: answer.titleU,
+    //   salary: answer.salaryU,
+    //   department_id: answer.departmentU
+    // },
+    // {
+    //   role_id: answer.whatRole
+    // }
+    // ],
+    // (err, res) => {
+    //   if (err) throw err;
+    //   console.log(`${res.affectedRows} rows updated \n`)
+    // }
+    )
+  }))
+// console.log('nothing to see here')
+// start()
+}
+
   function start() {
     inquirer
         .prompt({
             name: 'action',
             type: 'list',
             message: 'What would you like to do?',
-            choices: ['Add', 'View', 'Update', 'Exit']
+            choices: ['Add', 'View', 'Update', 'View Department Totals', 'Exit']
         })
         .then(function(answer) {
         switch (answer.action) {
@@ -294,6 +331,10 @@ const updateDepartment = () => {
 
             case 'Update':
             updateWhat();
+            break;
+
+            case 'View Department Totals':
+            viewTotals();
             break;
 
             case 'Exit':
