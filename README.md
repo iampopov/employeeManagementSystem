@@ -53,3 +53,5 @@ So that I can organize and plan my business
 - Use [console.table](https://www.npmjs.com/package/console.table) to print MySQL rows to the console.
 
 - Input validation using [Regular Expression](http://www.regexbuddy.com/regex.html) aka Regex or Regexp
+
+![Demonstration](Assets/EMSdemonstration.gif)
