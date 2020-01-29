@@ -1,6 +1,6 @@
 # MySQL: Employee Tracker
 
-This app is a **C**ontent **M**anagement **S**ystems a solution for managing a company's employees using node, inquirer, and MySQL.
+This app is a **C**ontent **M**anagement **S**ystems solution for managing a company's employees using node, inquirer, and MySQL.
 
 ## Design
 
