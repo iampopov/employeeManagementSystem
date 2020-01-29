@@ -14,7 +14,6 @@ const choices = []
 function chooseRole() {
   connection.query('SELECT * FROM role', (err, res) => {
     if (err) throw err;
-    //console.log(res)
     for(const {role_id, title} of res) {
       choices.push(role_id)
     }
@@ -77,12 +76,6 @@ const updateDepartment = () => {
       }
       )
     }))
-
-    //start();
-  }
-  const updateEmployee = () => {
-    
-    start();
   }
   
   const viewDepartment = () => {
@@ -287,28 +280,10 @@ const viewTotals = () => {
       department_id: answer.departmentT
     }, (err, res) => {
       if (err) throw err;
-      console.log(res);
+      console.table(res);
       start();
-    }
-      //   "UPDATE role SET ? WHERE ?", 
-    // [
-    // {
-    //   title: answer.titleU,
-    //   salary: answer.salaryU,
-    //   department_id: answer.departmentU
-    // },
-    // {
-    //   role_id: answer.whatRole
-    // }
-    // ],
-    // (err, res) => {
-    //   if (err) throw err;
-    //   console.log(`${res.affectedRows} rows updated \n`)
-    // }
-    )
+    })
   }))
-// console.log('nothing to see here')
-// start()
 }
 
   function start() {
